@@ -1,3 +1,5 @@
+# The buildspec file is used to define the build process for the CodeBuild project. 
+
 version: 0.2
 
 phases:
