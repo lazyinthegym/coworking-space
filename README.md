@@ -59,6 +59,7 @@ kubectl apply -f configmap.yaml
 kubectl apply -f secret.yaml
 kubectl apply -f postgresql-deployment.yaml
 kubectl apply -f postgresql-service.yaml
+kubectl apply -f app-deploy.yml
 
 # View the pods to verify a pod is running
 kubectl get pods
@@ -116,7 +117,7 @@ TODO
 ### Step 6: Clean up
 - Delete the K8s cluster
 ```bash
-eksctl delete cluster --name coworking-space
+eksctl delete cluster --name coworking-space --region us-east-1
 ```
 
 - Cancel the port-forwarding
