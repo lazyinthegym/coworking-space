@@ -31,9 +31,8 @@
 
 ### Step 1: Set up the CodeBuild project
 This is done on the AWS console. We will create a CodeBuild project that will link to this repo to build the docker image and push it to AWS ECR.
-(TODO: Add the steps to create the CodeBuild project)
 
-### Step 2: Create and deploy the K8s cluster
+### Step 2: Create the K8s cluster
 Create a K8s cluster with name `coworking-space`. You will connect `kubectl` tool to this cluster to interact with it.
 
 ```bash
@@ -56,7 +55,10 @@ kubectl get namespace
 # Apply YAML configurations
 kubectl apply -f pvc.yaml
 kubectl apply -f pv.yaml
+kubectl apply -f configmap.yaml
+kubectl apply -f secret.yaml
 kubectl apply -f postgresql-deployment.yaml
+kubectl apply -f postgresql-service.yaml
 
 # View the pods to verify a pod is running
 kubectl get pods

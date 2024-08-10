@@ -1,6 +1,3 @@
-# This file is a kubernetes congiguration file that defines the deployment for the postgresql database.
-# The deployment is used to create the postgresql database pod.
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,6 +12,8 @@ spec:
         app: postgresql
     spec:
       containers:
+      - name: postgresql
+        image: postgres:latest
         env:
         - name: DB_HOST
           valueFrom:
@@ -31,7 +30,7 @@ spec:
             configMapKeyRef:
               name: postgresql-configmap
               key: DB_NAME
-        - name: DB_USERNAME
+        - name: POSTGRES_PASSWORD
           valueFrom:
             configMapKeyRef:
               name: postgresql-configmap

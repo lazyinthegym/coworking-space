@@ -3,8 +3,8 @@ kind: ConfigMap
 metadata:
   name: postgresql-configmap
 data:
-  DB_HOST: 10.100.178.127
-  DB_PORT: 5432
-  DB_NAME: users-database
-  DB_USERNAME: ahmad
-  DB_PASSWORD: POSTGRES_PASSWORD
+  DB_HOST: "10.100.178.127"
+  DB_PORT: "5432"
+  DB_NAME: "users-database"
+  DB_USERNAME: "ahmad"
+  DB_PASSWORD: "POSTGRES_PASSWORD"
