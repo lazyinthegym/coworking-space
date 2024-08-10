@@ -1,3 +1,6 @@
+# This file is a kubernetes congiguration file that defines the deployment for the postgresql database.
+# The deployment is used to create the postgresql database pod.
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:

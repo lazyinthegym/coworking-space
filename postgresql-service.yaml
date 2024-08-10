@@ -1,3 +1,6 @@
+# This file is a kubernetes congiguration file that defines the service for the postgresql database defined and deployed in `postgresql-deployment.yaml`. 
+# The service is used to expose the database to the other services in the cluster.
+
 apiVersion: v1
 kind: Service
 metadata:

@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM python:slim
 
 # Update the package lists
 RUN apt-get update

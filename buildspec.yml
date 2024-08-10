@@ -1,4 +1,6 @@
-# The buildspec file is used to define the build process for the CodeBuild project. 
+# The buildspec file is used to define the build process for the CodeBuild project. CodeBuild automates building, compling, testing and deploying.
+
+# This CodeBuild priject is used to build the docker image and push it to the ECR repository.
 
 version: 0.2
 
