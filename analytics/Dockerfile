@@ -15,7 +15,8 @@ RUN apt-get install -y \
     jq \
     build-essential \
     libpq-dev \
-    postgresql-client
+    postgresql-client \
+    netcat
 
 # Set environment variables
 ENV DB_USERNAME=ahmad \
