@@ -18,13 +18,6 @@ RUN apt-get install -y \
     postgresql-client \
     netcat-openbsd
 
-# Set environment variables
-ENV DB_USERNAME=ahmad \
-    DB_PASSWORD=dummypassword \
-    DB_HOST=127.0.0.1 \
-    DB_PORT=5433 \
-    DB_NAME=mydatabase
-
 # Set the working directory
 WORKDIR /app
 
