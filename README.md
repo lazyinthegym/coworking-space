@@ -108,9 +108,18 @@ SELECT * FROM users;
 \q
 ```
 
-- Close the port-forwarding ( TODO: add in the clean up section)
+### Step 5: Deploy the analytics application
+TODO
+
+### Step 6: Clean up
+- Delete the K8s cluster
+```bash
+eksctl delete cluster --name coworking-space
+```
+
+- Delete the CodeBuild project
+
+- Cancel the port-forwarding
 ```bash
 ps aux | grep 'kubectl port-forward' | grep -v grep | awk '{print $2}' | xargs -r kill
 ```
-
-### Step 5: Deploy the analytics application
