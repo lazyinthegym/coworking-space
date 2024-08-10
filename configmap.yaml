@@ -1,9 +1,10 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: postgresql-service-postgresql
+  name: postgresql-configmap
 data:
   DB_HOST: 10.100.178.127
   DB_PORT: 5432
-  DB_NAME: mydatabase
-  DB_USER: ahmad
+  DB_NAME: users-database
+  DB_USERNAME: ahmad
+  DB_PASSWORD: POSTGRES_PASSWORD
