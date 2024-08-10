@@ -16,7 +16,7 @@ RUN apt-get install -y \
     build-essential \
     libpq-dev \
     postgresql-client \
-    netcat
+    netcat-openbsd
 
 # Set environment variables
 ENV DB_USERNAME=ahmad \
