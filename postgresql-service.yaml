@@ -6,8 +6,9 @@ kind: Service
 metadata:
   name: postgresql-service
 spec:
-  ports:
-  - port: 5432
-    targetPort: 5432
   selector:
     app: postgresql
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
