@@ -59,7 +59,6 @@ kubectl apply -f configmap.yaml
 kubectl apply -f secret.yaml
 kubectl apply -f postgresql-deployment.yaml
 kubectl apply -f postgresql-service.yaml
-kubectl apply -f secret.yaml
 kubectl apply -f app-deploy.yml
 
 # View the pods to verify a pod is running

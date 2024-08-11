@@ -7,4 +7,3 @@ data:
   DB_PORT: "5432"
   DB_NAME: "users-database"
   DB_USERNAME: "ahmad"
-  DB_PASSWORD: "POSTGRES_PASSWORD"
