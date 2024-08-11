@@ -30,12 +30,12 @@ spec:
             configMapKeyRef:
               name: postgresql-configmap
               key: DB_NAME
-        - name: POSTGRES_PASSWORD
+        - name: DB_USERNAME  # Added this line
           valueFrom:
             configMapKeyRef:
               name: postgresql-configmap
               key: DB_USERNAME
-        - name: DB_PASSWORD
+        - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
               name: postgresql-secret
