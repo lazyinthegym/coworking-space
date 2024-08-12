@@ -16,8 +16,8 @@
 # Instructions: How to deploy the project
 ### Step 1: Set up and run the CodeBuild project
 This is done on the AWS console. Create a CodeBuild project that will link to this repo to build the docker image and push it to AWS ECR.
-After the build succeeds, edit the following line in [app-deployment.yml][./app-deployment.yml#L33] and change the tag to the correct tag on the AWS docker hub
-`image: 992382364567.dkr.ecr.us-east-1.amazonaws.com/udacity-coworking-checkin:15`
+
+After the build succeeds, edit the following line in [app-deployment.yml](./app-deployment.yml#L33) and change the tag to the correct url of the docker image on the AWS docker hub. 
 
 ### Step 2: Create the K8s cluster
 Create a K8s cluster with name `coworking-space`. You will connect `kubectl` tool to this cluster to interact with it.
