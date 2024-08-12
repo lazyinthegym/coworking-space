@@ -1,8 +1,5 @@
 # Coworking Space Project
-- This is a microservice application that has 2 distinct services: database service, and an analytics application service
-- Set up CodeBuild project to build the docker image and pushes it to AWS ECR.
-- Create a EKS (K8s) cluster using `eksctl`
-- Connect to the cluster using `kubectl`. You will use `kubectl` from now on to interact with the cluster.
+- This is a microservice application that has 2 distinct services: database service, and an analytics application serviceclear
 
 # Project Structure
 - `postgresql-deployment.yaml` & `postgresql-service.yaml`: Kubernetes configuration files for deploying the Postgres database and its service.
@@ -19,7 +16,7 @@
 # Instructions: How to deploy the project
 ### Step 1: Set up and run the CodeBuild project
 This is done on the AWS console. Create a CodeBuild project that will link to this repo to build the docker image and push it to AWS ECR.
-After the build succeeds, edit the following line in [./app-deploy.yml#L33] and change the tag to the correct tag on the AWS docker hub
+After the build succeeds, edit the following line in [app-deployment.yml][./app-deployment.yml#L33] and change the tag to the correct tag on the AWS docker hub
 `image: 992382364567.dkr.ecr.us-east-1.amazonaws.com/udacity-coworking-checkin:15`
 
 ### Step 2: Create the K8s cluster
@@ -60,7 +57,7 @@ psql -h localhost -U ahmad -d users-database -f db/3_seed_tokens.sql
 ### Step 5: Deploy and test the analytics application
 ```bash
 # deploy the app
-kubectl apply -f app-deploy.yml
+kubectl apply -f app-deployment.yml
 
 # Get the URL of the app
 APP_EXTERNAL_IP=$(kubectl get services coworking -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
