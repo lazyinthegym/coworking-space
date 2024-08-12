@@ -15,22 +15,12 @@ spec:
       - name: postgresql
         image: postgres:latest
         env:
-        - name: DB_HOST
-          valueFrom:
-            configMapKeyRef:
-              name: postgresql-configmap
-              key: DB_HOST
-        - name: DB_PORT
-          valueFrom:
-            configMapKeyRef:
-              name: postgresql-configmap
-              key: DB_PORT
-        - name: DB_NAME
+        - name: POSTGRES_DB
           valueFrom:
             configMapKeyRef:
               name: postgresql-configmap
               key: DB_NAME
-        - name: DB_USERNAME  # Added this line
+        - name: POSTGRES_USER
           valueFrom:
             configMapKeyRef:
               name: postgresql-configmap
