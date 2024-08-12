@@ -67,6 +67,16 @@ curl $APP_EXTERNAL_IP:5153/api/reports/daily_usage
 curl $APP_EXTERNAL_IP:5153/api/reports/user_visits | jsonpp
 ```
 
+### Step 6: Set up CloudWatch
+```bash
+aws iam attach-role-policy \
+--role-name eksctl-coworking-space-nodegroup-m-NodeInstanceRole-ntmJOcKQpR2L \
+--policy-arn arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy 
+
+aws eks create-addon --addon-name amazon-cloudwatch-observability --cluster-name coworking-space --region us-east-1
+
+```
+
 ### Clean up
 - Delete the K8s cluster
 ```bash
