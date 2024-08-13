@@ -1,53 +1,45 @@
 # Coworking Space Project
-This project is a microservice application consisting of two services: a PostgreSQL database service and an analytics application built with Flask and SQLAlchemy. 
-The docker image for the application is built and published using AWS Codebuild, and the services are deployed using Kubernetes. 
 
----
+This project consists of a microservice application with two main services: a PostgreSQL database and an analytics application built using Flask and SQLAlchemy. The application is containerized using Docker, and the deployment is managed using Kubernetes (EKS on AWS). The app docker image build process is automated with AWS CodeBuild, and the Docker images are stored in AWS ECR.
 
-## Instructions: How to Deploy the Project
+## Table of Contents
+1. [Technologies Used](#technologies-used)
+2. [Deployment Process](#deployment-process)
+   - [Build and Push Docker Image](#build-and-push-docker-image)
+   - [Kubernetes Cluster Setup](#kubernetes-cluster-setup)
+   - [Database Deployment](#database-deployment)
+   - [Running SQL Scripts](#running-sql-scripts)
+   - [Deploying the Analytics Application](#deploying-the-analytics-application)
+   - [Monitoring with CloudWatch](#monitoring-with-cloudwatch)
+3. [Releasing New Builds](#releasing-new-builds)
 
-### Step 1: Set up and run the CodeBuild project
-Create a CodeBuild project on the AWS console linked to this repo to build the Docker image and push it to AWS ECR. After the build succeeds, update the tag in [app-deployment.yml](./app-deployment.yml#L33) with the correct Docker image URL.
+## Deployment Overview
 
-### Step 2: Create the K8s cluster
-```bash
-eksctl create cluster --name coworking-space --region us-east-1 --nodegroup-name my-nodes --node-type t3.small --nodes 1 --nodes-min 1 --nodes-max 2
-aws eks --region us-east-1 update-kubeconfig --name coworking-space
-kubectl config current-context
-```
+### Technologies Used
+- **Docker**: For containerizing the analytics application.
+- **AWS CodeBuild**: Automates the building and pushing of Docker images to AWS ECR.
+- **Kubernetes (EKS)**: Manages the deployment of services, providing scalability and resilience.
+- **PostgreSQL**: Serves as the database backend for the application.
+- **AWS CloudWatch**: Monitors logs and metrics for the deployed services.
 
-### Step 3: Deploy the Postgres database and its service
-```bash
-cd deployments
-kubectl apply -f pvc.yaml -f pv.yaml -f configmap.yaml -f secret.yaml -f postgresql-deployment.yaml -f postgresql-service.yaml
-```
+### Deployment Process
+1. **Build and Push Docker Image**:
+   - Use AWS CodeBuild to automate the build of the Docker image with every push in this repo. The image is then pushed to AWS ECR for version control and easy retrieval during deployments.
+  
+2. **Kubernetes Cluster Setup**:
+   - The application is deployed to an EKS cluster. The cluster can be created using `eksctl`, which simplifies the configuration and management of Kubernetes clusters on AWS.
 
-### Step 4: Run the SQL scripts
-```bash
-kubectl port-forward svc/postgresql-service 5432:5432 &
-psql -h localhost -U ahmad -d users-database -f db/1_create_tables.sql
-psql -h localhost -U ahmad -d users-database -f db/2_seed_users.sql
-psql -h localhost -U ahmad -d users-database -f db/3_seed_tokens.sql
-```
+3. **Database Deployment**:
+   - The PostgreSQL database is deployed as a Kubernetes service. Persistent volumes, configurations, and secrets are managed through Kubernetes manifests.
 
-### Step 5: Deploy and test the analytics application
-```bash
-kubectl apply -f app-deployment.yml
-APP_EXTERNAL_IP=$(kubectl get services coworking -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
-curl $APP_EXTERNAL_IP:5153/api/reports/daily_usage
-curl $APP_EXTERNAL_IP:5153/api/reports/user_visits | jsonpp
-```
+4. **Deploying the Analytics Application**:
+   - The Flask-based analytics application is deployed using a Kubernetes deployment manifest. Once deployed, it is exposed through a load balancer.
 
-### Step 6: Set up CloudWatch
-```bash
-aws iam attach-role-policy --role-name eksctl-coworking-space-nodegroup-m-NodeInstanceRole-ntmJOcKQpR2L --policy-arn arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy 
-aws eks create-addon --addon-name amazon-cloudwatch-observability --cluster-name coworking-space --region us-east-1
-```
+5. **Monitoring with CloudWatch**:
+   - CloudWatch is configured to monitor the EKS cluster and application logs, providing insights into the system’s performance and potential issues.
 
-### Clean up
-```bash
-eksctl delete cluster --name coworking-space --region us-east-1
-ps aux | grep 'kubectl port-forward' | grep -v grep | awk '{print $2}' | xargs -r kill
-```
-
----
+### Releasing New App Builds
+To release new builds:
+1. Update the codebase and push changes to the repository. AWS CodeBuild will automatically build a new app docker image and push it to AWS ECR.
+3. Update the deployment manifest (`app-deployment.yml`) with the new image link from ECR.
+4. Redeploy the updated application using `kubectl apply -f app-deployment.yml`.

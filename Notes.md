@@ -1,6 +1,3 @@
-# Coworking Space Project
-- This is a microservice application that has 2 distinct services: database service, and an analytics application serviceclear
-
 # Project Structure
 - `postgresql-deployment.yaml` & `postgresql-service.yaml`: Kubernetes configuration files for deploying the Postgres database and its service.
 
